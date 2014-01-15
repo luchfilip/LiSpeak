@@ -243,74 +243,76 @@ def sudo(cmd):
         else:
             display = False
 def translate(text,lang=False):
-    text = str(text).replace("\n","_NL_").replace("\t","_TB_")
-    paths = []
-    replaces = []
-    x = 0
-    while "^" in text:
-        scan = False
-        ntext = ""
-        ntext2 = ""
-        for l in text:
-            if l == "^" and scan == False:
-                scan = True
-                ntext2 = ntext2 + l
-            elif l != "^" and scan == True:
-                ntext = ntext + l
-                ntext2 = ntext2 + l
-            elif l == "^" and scan == True:
-                ntext2 = ntext2 + l
-                scan = False
-                break
-        if ntext != "":
-            replaces.append(ntext)
-            text = text.replace(ntext2,"_NT"+str(x)+"_")
-        x = x + 1
-    x = 0
-    while "/" in text:
-        scan = False
-        path = ""
-        for l in text:
-            if l == "/":
-                scan = True
-                path = path + l
-            elif l != " " and scan == True:
-                path = path + l
-            elif l == " " and scan == True:
-                scan = False
-                break
-        if path != "":
-            paths.append(path)
-            text = text.replace(path,"_PATH"+str(x)+"_")
-        x = x + 1
-    
-    #Add support later for predefined language packs
-    if lang == False:
-        try:
-            lang = getSingleInfo("lang")
-        except:
-            lang = "en"
-    if lang not in languages:
-        loadLanguage(lang)
-    if text in languages[lang.lower()]:
-        rtext = languages[lang.lower()][text]
-    else:
-        try:
-            rtext = gt.translate(text+" _END_ _END_",lang).encode('utf8')
-            touch(root+"/configs/Language-"+lang.lower(),False)
-            print writeSingleInfo(text,rtext.replace("_END_",""),"Language-"+lang.lower(),False,False)
-            print "Writing New Translation:",text
-        except:
-            rtext = text
-    x = 0
-    for p in paths:
-        rtext = rtext.replace("_PATH"+str(x)+"_",p)
-        x = x + 1
-    x = 0
-    for p in replaces:
-        rtext = rtext.replace("_NT"+str(x)+"_",p)
-        x = x + 1
-    return rtext.replace("_END_","").replace("_NL_","\n").replace("_TB_","\t")
+    if 1 == 2:
+        text = str(text).replace("\n","_NL_").replace("\t","_TB_")
+        paths = []
+        replaces = []
+        x = 0
+        while "^" in text:
+            scan = False
+            ntext = ""
+            ntext2 = ""
+            for l in text:
+                if l == "^" and scan == False:
+                    scan = True
+                    ntext2 = ntext2 + l
+                elif l != "^" and scan == True:
+                    ntext = ntext + l
+                    ntext2 = ntext2 + l
+                elif l == "^" and scan == True:
+                    ntext2 = ntext2 + l
+                    scan = False
+                    break
+            if ntext != "":
+                replaces.append(ntext)
+                text = text.replace(ntext2,"_NT"+str(x)+"_")
+            x = x + 1
+        x = 0
+        while "/" in text:
+            scan = False
+            path = ""
+            for l in text:
+                if l == "/":
+                    scan = True
+                    path = path + l
+                elif l != " " and scan == True:
+                    path = path + l
+                elif l == " " and scan == True:
+                    scan = False
+                    break
+            if path != "":
+                paths.append(path)
+                text = text.replace(path,"_PATH"+str(x)+"_")
+            x = x + 1
+        
+        #Add support later for predefined language packs
+        if lang == False:
+            try:
+                lang = getSingleInfo("lang")
+            except:
+                lang = "en"
+        if lang not in languages:
+            loadLanguage(lang)
+        if text in languages[lang.lower()]:
+            rtext = languages[lang.lower()][text]
+        else:
+            try:
+                rtext = gt.translate(text+" _END_ _END_",lang).encode('utf8')
+                touch(root+"/configs/Language-"+lang.lower(),False)
+                print writeSingleInfo(text,rtext.replace("_END_",""),"Language-"+lang.lower(),False,False)
+                print "Writing New Translation:",text
+            except:
+                rtext = text
+        x = 0
+        for p in paths:
+            rtext = rtext.replace("_PATH"+str(x)+"_",p)
+            x = x + 1
+        x = 0
+        for p in replaces:
+            rtext = rtext.replace("_NT"+str(x)+"_",p)
+            x = x + 1
+        return rtext.replace("_END_","").replace("_NL_","\n").replace("_TB_","\t")
+    return text
 def dialogInfo(text,title="LiSpeak",notrans="",term=True):
     debug("Creating Info Dialog: "+text)
     if term == True:
