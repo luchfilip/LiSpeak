@@ -17,10 +17,7 @@ NOTE: Ubuntu 13.10 users will need to log out and back in after setting a shortc
 
 Language Support
 ======
-Google Translate is used to automatically translate any phrases that are not pre-defined by language files. Translations are then stored locally to both increase the program's speed and provide some offline support (for mobile plugins, currently internet access is required by speech-to-text).
-
-LiSpeak plugins are structured to easily have support for any language.
-Files are named in accordance to their language. An English dictionary file is just name "en" and a Spanish dictionary file is name "es". It is that simple to add different languages.
+Altough this is the English only preview, we always could use a hand translating LiSpeak. If you have any questions about translating, read the wiki or submit and issue with the tag "translations"
 
 Window Focus
 =======
